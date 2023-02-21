@@ -39,13 +39,21 @@ def convert_one_hot(arr):
         x[i][arr[i]] = 1
     return torch.Tensor(x )#, dtype=torch.float)
 
+def edges_conversion(edge_index, n):
+    edges = np.zeros((n,n),dtype=int)
+    for i in range(edge_index.shape[1]): #remove bidirectional edges to change this
+        edges[edge_index[0][i]][edge_index[1][i]] = 1
+    return torch.Tensor(edges )
+
 def data_loader_conversion(input_data_loader):
     data_list=[]
     time=0 # need to split at each 20 time steps
     for data_node in input_data_loader:       	
 
-        edges = data_node.x
-        #edges = edges.unsqueeze(0)
+        #edges = data_node.x as this might change
+        
+        n = data_node.x.shape[0]
+        edges = edges_conversion(edge_index, n)
         
         nodes = np.identity(edges.shape[-1])
         #nodes = torch.tensor(np.expand_dims(nodes,axis=0)) #todo

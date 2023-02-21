@@ -31,7 +31,7 @@ def edges_conversion(edge_index, n):
 
 def data_loader_conversion(x,edge_index,y_batch, y_index):
     data_list=[]
-    edges = x #todo derive edges from edge index as it can be different    
+      
     n = x.shape[0]
     edges = edges_conversion(edge_index, n)
     nodes = np.identity(edges.shape[-1])
