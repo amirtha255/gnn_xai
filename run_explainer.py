@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
     graph_index = cfg['graph_index']
     node_index = cfg['node_index']
-    target = (train_data_list[graph_index].y).long().to(device)
+    target = (train_data_list[graph_index].y).long().to(device) #todo choice in test list
     x, edge_index = train_data_list[graph_index].x.to(device),train_data_list[graph_index].edge_index.to(device) #choose which graph to explain
 
     explanation = explainer(x, edge_index, index=node_index, target=target)
