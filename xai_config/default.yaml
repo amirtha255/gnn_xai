@@ -1,0 +1,17 @@
+name: default_exp
+algorithm: GNNExplainer
+explanation_epochs: 200
+explanation_type: model
+node_mask_type: attributes
+edge_mask_type: object
+mode: multiclass_classification
+task_level: node
+return_type: log_probs
+graph_index: 0
+node_index: 0
+data_loader_path: train_custom_data.pt
+model_ckpt: trained_simple_model.pt
+output_dir: xai_simple_model_results
+
+training_mode: False
+exp_mode: True
