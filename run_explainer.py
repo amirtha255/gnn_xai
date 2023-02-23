@@ -39,12 +39,8 @@ class Net(torch.nn.Module):
         x = F.dropout(x, training=self.training)
         x = self.conv2(x, edge_index)
         return F.log_softmax(x, dim=1)
-
-if __name__ == '__main__':
     
-    with open('xai_config/default.yaml') as f:
-        cfg = yaml.safe_load(f)
-    
+def simple_model_explanations(cfg):
     train_data_list   = torch.load(cfg['data_loader_path'])
     dim = 16 #todo
     n_classes = train_data_list[0].x.shape[1]
@@ -88,19 +84,39 @@ if __name__ == '__main__':
 
     graph_index = cfg['graph_index']
     node_index = cfg['node_index']
+    print('graph and node index',graph_index,node_index)
     target = (train_data_list[graph_index].y).long().to(device) #todo choice in test list
     x, edge_index = train_data_list[graph_index].x.to(device),train_data_list[graph_index].edge_index.to(device) #choose which graph to explain
 
     explanation = explainer(x, edge_index, index=node_index, target=target)
-    print(f'Generated explanations in {explanation.available_explanations}')
+    #print(f'Generated explanations in {explanation.available_explanations}')
+    #print('Edge mask sum ',explanation.edge_mask.cpu().numpy())
 
     if not os.path.exists(cfg['output_dir']):
         os.makedirs(cfg['output_dir'])
 
     path = os.path.join(cfg['output_dir'],'feature_importance_g{}_n{}_{}.png'.format(graph_index,node_index,cfg['name']))
     explanation.visualize_feature_importance(path, top_k=5)
-    print(f"Feature importance plot has been saved to '{path}'")
+    #print(f"Feature importance plot has been saved to '{path}'")
 
     path = os.path.join(cfg['output_dir'],'subgraph_g{}_n{}_{}.pdf'.format(graph_index,node_index,cfg['name']))
     explanation.visualize_graph(path)
-    print(f"Subgraph visualization plot has been saved to '{path}'")
+    #print(f"Subgraph visualization plot has been saved to '{path}'")
+
+    
+    top_feature_imp = explanation.node_mask.sum(dim=0).cpu().numpy()
+    top_5_features = (-top_feature_imp).argsort()[:5]
+    #print('Top 5 features are',top_5_features, [top_feature_imp[ind] for ind in top_5_features] )
+    return top_5_features, [top_feature_imp[ind] for ind in top_5_features]
+
+if __name__ == '__main__':
+    
+    with open('xai_config/default.yaml') as f:
+        cfg = yaml.safe_load(f)
+
+    simple_model_explanations(cfg)
+    
+    #options to override cfg
+    
+    
+    
