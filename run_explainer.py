@@ -14,6 +14,7 @@ from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
 from torch_geometric.nn import GCNConv, Set2Set
 from torch_geometric.explain import Explainer, GNNExplainer , PGExplainer, CaptumExplainer
+from torch_geometric.visualization import visualize_graph
 
 import random
 random.seed(23435)
@@ -84,7 +85,7 @@ def simple_model_explanations(cfg):
 
     graph_index = cfg['graph_index']
     node_index = cfg['node_index']
-    print('graph and node index',graph_index,node_index)
+    #print('graph and node index',graph_index,node_index)
     target = (train_data_list[graph_index].y).long().to(device) #todo choice in test list
     x, edge_index = train_data_list[graph_index].x.to(device),train_data_list[graph_index].edge_index.to(device) #choose which graph to explain
 
@@ -103,10 +104,15 @@ def simple_model_explanations(cfg):
     explanation.visualize_graph(path)
     #print(f"Subgraph visualization plot has been saved to '{path}'")
 
+    path = os.path.join(cfg['output_dir'],'orig_graph_g{}_n{}_{}.pdf'.format(graph_index,node_index,cfg['name']))
+    visualize_graph(edge_index,None,path,None)
     
     top_feature_imp = explanation.node_mask.sum(dim=0).cpu().numpy()
     top_5_features = (-top_feature_imp).argsort()[:5]
-    #print('Top 5 features are',top_5_features, [top_feature_imp[ind] for ind in top_5_features] )
+    
+    print('Top 5 features are',top_5_features, [top_feature_imp[ind] for ind in top_5_features] )
+    print('Explanantion edge mask is ',explanation.edge_mask)
+
     return top_5_features, [top_feature_imp[ind] for ind in top_5_features]
 
 if __name__ == '__main__':

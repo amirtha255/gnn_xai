@@ -31,7 +31,7 @@ def edges_conversion(edge_index, n):
 
 def data_loader_conversion(x,edge_index,y_batch, y_index):
     data_list=[]
-      
+    edges = x #todo derive edges from edge index as it can be different    
     n = x.shape[0]
     edges = edges_conversion(edge_index, n)
     nodes = np.identity(edges.shape[-1])
@@ -76,6 +76,8 @@ class GnnConverter(torch.nn.Module):
         new_train_data_loader = data_loader_conversion(x, edge_index, self.y_batch, y_index)
         data_element = next(iter(new_train_data_loader))         
         _,details,_ = self.graph_model.step(data_element)
-        op = torch.log( torch.tensor(details['output_probs']['location'].squeeze()))
+        op = details['output_probs']['location'].squeeze().clone().detach().requires_grad_(True)
+        op = torch.log_softmax(op, dim=1) # do log softmax and check
+        
         return op
 

@@ -1,6 +1,6 @@
 name: spatio_with_custom
-train_data_loader: /workspace/new_explainers/train_custom_data.pt 
-test_data_loader: /workspace/new_explainers/test_custom_data.pt
+train_data_loader: train_custom_data.pt 
+test_data_loader: test_custom_data.pt
 
 model_mode: explain #training is alternative, to train data instead
 
