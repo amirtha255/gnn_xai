@@ -1,17 +1,15 @@
 name: default_exp
-algorithm: GNNExplainer
+algorithm: CaptumExplainer
 explanation_epochs: 200
-explanation_type: model
+explanation_type: phenomenon
 node_mask_type: attributes
 edge_mask_type: object
 mode: multiclass_classification
 task_level: node
 return_type: log_probs
-graph_index: 0
-node_index: 0
-data_loader_path: train_custom_data.pt
-model_ckpt: trained_simple_model.pt
+graph_index: 6
+node_index: 0 #Data_a_milk_to_counter, milk is 4, cofee is 6
+data_loader_path: custom_data/train_custom_data_min_13_steps.pt
+model_ckpt: simple_model_checkpts/trained_simple_model_min_edges_13_steps.pt
 output_dir: xai_simple_model_results
 
-training_mode: False
-exp_mode: True

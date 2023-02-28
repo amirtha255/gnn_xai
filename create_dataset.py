@@ -38,6 +38,7 @@ def y_to_x(arr):
 
 def y_to_edge(arr):
     # returns edge indexing given x
+    #return y_to_fully_connected_edges(arr)
     index_start = []
     index_end = []
     n = len(arr)
@@ -54,6 +55,23 @@ def y_to_edge(arr):
     op = torch.Tensor(op)
     return op.long()
 
+def y_to_fully_connected_edges(arr):
+    n = len(arr)
+    index_start = []
+    index_end = []
+    for i in range(n): #every nide connected to every node except itself
+        for j in range(n):
+            if i!=j:
+                index_start.append(i)
+                index_end.append(j)
+    op = []
+    temp = index_start[:]
+    index_start.extend(np.transpose(index_end)) #todo check if bidrectional edges
+    index_end.extend(np.transpose(temp))
+    op.append(index_start)
+    op.append(index_end)
+    op = torch.Tensor(op)
+    return op.long()
     
 
 if __name__ == '__main__':
@@ -65,7 +83,7 @@ if __name__ == '__main__':
     temp_y = [int(x) for x in y_scene_1.tolist()]
     x_scene_1 = y_to_x(temp_y)
     edge_scene_1 = y_to_edge(temp_y)
-
+    
     # scene 2 - coffee to counter
     y_scene_2 = torch.Tensor([0, 0, 0, 0, 1, 3, 2, 2, 10, 10, 0]) 
     temp_y = [int(x) for x in y_scene_2.tolist()]
@@ -130,8 +148,7 @@ if __name__ == '__main__':
 
     """
     # Has 20 time steps
-    data_scenario_a_list = [Data_a_base_state, Data_a_base_state,                                 
-                            Data_a_base_state, Data_a_base_state,                                 
+    data_scenario_a_list = [                               
                             Data_a_base_state,
                             Data_a_coffee_to_counter,
                             Data_a_milk_to_counter,
@@ -142,8 +159,7 @@ if __name__ == '__main__':
                             Data_a_coffee_to_cabinet,
                             Data_a_milk_to_fridge,
                             Data_a_cup_to_rack,
-                            Data_a_end_state, Data_a_end_state,
-                            Data_a_end_state, Data_a_end_state ]
+                            Data_a_end_state]
 
     for data_object in data_scenario_a_list:
         data_object.train_mask = ones.bool()
@@ -207,8 +223,7 @@ if __name__ == '__main__':
     Data_b_end_state = Data(x=x_scene_14, edge_index=edge_scene_14, y=y_scene_14) # 4 steps
     
     # Has 20 time steps
-    data_scenario_b_list = [Data_b_base_state, Data_b_base_state,                                 
-                            Data_b_base_state, Data_b_base_state,                                 
+    data_scenario_b_list = [                              
                             Data_b_base_state,
                             Data_b_cereal_to_counter,
                             Data_b_milk_to_counter,
@@ -219,8 +234,7 @@ if __name__ == '__main__':
                             Data_b_cereal_to_cabinet,
                             Data_b_milk_to_fridge,
                             Data_b_bowl_to_rack,
-                            Data_b_end_state, Data_b_end_state,
-                            Data_b_end_state, Data_b_end_state ]
+                            Data_b_end_state ]
 
     
     #torch.save(data_scenario_b_list,'data_scenario_b.pt')
@@ -297,8 +311,7 @@ if __name__ == '__main__':
     Data_c_cup_to_rack = Data(x=x_scene_22, edge_index=edge_scene_22, y=y_scene_23)
     Data_c_end_state = Data(x=x_scene_23, edge_index=edge_scene_23, y=y_scene_23)
 
-    data_scenario_c_list = [Data_c_base_state, Data_c_base_state,
-                            Data_c_base_state, Data_c_base_state,
+    data_scenario_c_list = [Data_c_base_state,
                             Data_c_coffee_to_counter,
                             Data_c_milk_to_counter,
                             Data_c_cup_to_counter,
@@ -309,8 +322,6 @@ if __name__ == '__main__':
                             Data_c_coffee_to_cabinet,
                             Data_c_milk_to_fridge,
                             Data_c_cup_to_rack,
-                            Data_c_end_state, Data_c_end_state,
-                            Data_c_end_state, Data_c_end_state
                             ]
     
     #torch.save(data_scenario_c_list,'data_scenario_c.pt')
@@ -387,9 +398,7 @@ if __name__ == '__main__':
     Data_d_bowl_to_rack = Data(x=x_scene_31, edge_index=edge_scene_31, y=y_scene_32)
     Data_d_end_state = Data(x=x_scene_32, edge_index=edge_scene_32, y=y_scene_32)
 
-    data_scenario_d_list = [Data_d_base_state, Data_d_base_state,
-                            Data_d_base_state, Data_d_base_state,
-                            Data_d_cereal_to_counter,
+    data_scenario_d_list = [Data_d_base_state,
                             Data_d_milk_to_counter,
                             Data_d_bowl_to_counter,
                             Data_d_key_to_kitchen,
@@ -399,8 +408,7 @@ if __name__ == '__main__':
                             Data_d_cereal_to_cabinet,
                             Data_d_milk_to_fridge,
                             Data_d_bowl_to_rack,
-                            Data_d_end_state, Data_d_end_state,
-                            Data_d_end_state, Data_d_end_state
+                            Data_d_end_state
                             ]
     
     #torch.save(data_scenario_d_list,'data_scenario_d.pt')
@@ -464,9 +472,7 @@ if __name__ == '__main__':
     Data_e_cup_to_rack = Data(x=x_scene_38, edge_index=edge_scene_38, y=y_scene_39)
     Data_e_end_state = Data(x=x_scene_39, edge_index=edge_scene_39, y=y_scene_39) # same as initial 
 
-    data_scenario_e_list = [ Data_e_base_state, Data_e_base_state,
-                            Data_e_base_state, Data_e_base_state,
-                            Data_e_base_state,
+    data_scenario_e_list = [ Data_e_base_state,
                             Data_e_milk_to_counter,
                             Data_e_coffee_to_counter,
                             Data_e_cup_to_counter,
@@ -476,8 +482,7 @@ if __name__ == '__main__':
                             Data_e_coffee_to_cabinet,
                             Data_e_cup_to_rack,
                             Data_e_end_state, Data_e_end_state,
-                            Data_e_end_state, Data_e_end_state,
-                            Data_e_end_state
+                            
                             ]
     
     #torch.save(data_scenario_e_list,'data_scenario_e.pt')
@@ -539,9 +544,7 @@ if __name__ == '__main__':
     Data_f_bowl_to_rack = Data(x=x_scene_45, edge_index=edge_scene_45, y=y_scene_46)
     Data_f_end_state = Data(x=x_scene_46, edge_index=edge_scene_46, y=y_scene_46)
 
-    data_scenario_f_list = [Data_f_base_state, Data_f_base_state,
-                            Data_f_base_state, Data_f_base_state,
-                            Data_f_base_state,
+    data_scenario_f_list = [Data_f_base_state, 
                             Data_f_milk_to_counter,
                             Data_f_cereal_to_counter,
                             Data_f_bowl_to_counter,
@@ -551,8 +554,7 @@ if __name__ == '__main__':
                             Data_f_cereal_to_cabinet,
                             Data_f_bowl_to_rack,
                             Data_f_end_state, Data_f_end_state,
-                            Data_f_end_state, Data_f_end_state,
-                            Data_f_end_state
+                            
                             ]
     
     #torch.save(data_scenario_f_list,'data_scenario_f.pt')
@@ -608,8 +610,8 @@ if __name__ == '__main__':
     #print(len(train_data_list)) 1440
     #print(len(test_data_list)) 360
 
-    torch.save(train_data_list, 'train_custom_data.pt')
-    torch.save(test_data_list,'test_custom_data.pt')
+    torch.save(train_data_list, 'custom_data/train_custom_data_min_13_steps.pt')
+    torch.save(test_data_list,'custom_data/test_custom_data_min_13_steps.pt')
 
     
     node_ids_from_classes = {0:'0: kitchen',1:'1: fridge',2:'2: counter',3:'3: cabinet',4:'4: milk',5:'5:cereal', 6:'coffee',

@@ -1,10 +1,13 @@
 name: spatio_with_custom
-train_data_loader: train_custom_data.pt 
-test_data_loader: test_custom_data.pt
+train_data_loader: /workspace/SpatioTemporalObjectTracking/custom_data/train_custom_data_min_13_steps.pt
+test_data_loader: /workspace/SpatioTemporalObjectTracking/custom_data/test_custom_data_min_13_steps.pt
 
-model_mode: explain #training is alternative, to train data instead
+model_ckpts_path : spatio_custom_trained_models
+model_ckpt_name: spatio_temporal_on_minimal_13_steps.pt
+model_mode: training # explain, training is alternative, to train data instead
 
-ckpt: /workspace/SpatioTemporalObjectTracking/spatio_temporal_on_custom.pt
+# For explain mode
+ckpt: spatio_custom_trained_models/spatio_temporal_on_minimal_13_steps.pt
 data_loader_type : train_data_loader # test_data_loader is alternative. this is data that will be examined by pyg explainer
 
 algorithm: GNNExplainer
@@ -15,6 +18,7 @@ edge_mask_type: object
 mode: multiclass_classification
 task_level: node
 return_type: log_probs
-graph_index: 0
-node_index: 0
-output_dir: xai_spatio_model_results_custom_dataset
+graph_index: 14
+node_index: 2
+
+output_dir: spatio_custom_trained_models

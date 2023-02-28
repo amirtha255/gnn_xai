@@ -3,16 +3,16 @@ import torch.nn.functional as F
 import torch_geometric
 from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
-from torch_geometric.explain import Explainer, GNNExplainer
+from torch_geometric.explain import Explainer, GNNExplainer,CaptumExplainer, PGExplainer
 from torch_geometric.visualization import visualize_graph
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
 
+from adict import adict
 import networkx as nx
 import numpy as np
 import os
 import yaml
-from adict import adict
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use("Agg") #not show plots interactively
@@ -22,6 +22,8 @@ from reader import RoutinesDataset
 from encoders import TimeEncodingOptions
 from GraphTranslatorModule import GraphTranslatorModule
 
+import wandb
+from pytorch_lightning.loggers import WandbLogger
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -29,7 +31,6 @@ def one_hot_to_cat(y):
    y = np.array(y)
    op = np.argmax(y, axis=1)
    return op
-
 
 def convert_one_hot(arr):
     # return one hot encoding as x given the target representation, y
@@ -39,7 +40,7 @@ def convert_one_hot(arr):
         x[i][arr[i]] = 1
     return torch.Tensor(x )#, dtype=torch.float)
 
-def edges_conversion(edge_index, n):
+def edges_conversion(edge_index, n): #not used
     edges = np.zeros((n,n),dtype=int)
     for i in range(edge_index.shape[1]): #remove bidirectional edges to change this
         edges[edge_index[0][i]][edge_index[1][i]] = 1
@@ -47,34 +48,25 @@ def edges_conversion(edge_index, n):
 
 def data_loader_conversion(input_data_loader):
     data_list=[]
-    time=0 # need to split at each 20 time steps
+    time=0 # need to split at each 20 / 13 time steps
     for data_node in input_data_loader:       	
 
-        #edges = data_node.x as this might change
-        
-        n = data_node.x.shape[0]
-        edges = edges_conversion(data_node.edge_index, n)
-        
-        nodes = np.identity(edges.shape[-1])
-        #nodes = torch.tensor(np.expand_dims(nodes,axis=0)) #todo
-        nodes = torch.tensor(nodes).float()
-
+        edges = data_node.x            
         y_edges = convert_one_hot( [int(x) for x in data_node.y.tolist()] )#categorical to one hot
-        #y_edges = y_edges.unsqueeze(0)
 
+        nodes = np.identity(edges.shape[-1])
+        nodes = torch.tensor(nodes).float()
         y_nodes = np.identity(y_edges.shape[-1])
         y_nodes = torch.tensor(y_nodes).float()
-        #y_nodes = torch.tensor(np.expand_dims(nodes,axis=0)) #todo
 
         dynamic_edges_mask = np.ones((y_edges.shape))
         dynamic_edges_mask = torch.tensor(dynamic_edges_mask) #todo
 
         time+=1
-        time = time%20
+        time = time%13
         time_encoding="sine_informed"
         time_encoder=TimeEncodingOptions()
-        context_time = time_encoder(time_encoding)(time)#todo
-        
+        context_time = time_encoder(time_encoding)(time)#todo       
 
         data_list.append({'edges':edges,
                     'nodes':nodes, 'y_edges':y_edges, 'y_nodes':y_nodes,
@@ -150,7 +142,7 @@ def spatio_explanations(xai_cfg):
       elif xai_cfg['algorithm'] == 'PGExplainer':
           algorithm = PGExplainer(epochs=xai_cfg['explanation_epochs'])
       elif xai_cfg['algorithm'] == 'CaptumExplainer':
-          algorithm = CaptumExplainer(attribution_method='Integrated_Gradients')
+          algorithm = CaptumExplainer(attribution_method='IntegratedGradients')
       else:
           print('not a valid explanation algorithm')
           exit(0)
@@ -195,26 +187,28 @@ if __name__ == '__main__':
       xai_cfg = yaml.safe_load(f)
 
     if xai_cfg['model_mode']=="training":
-      base_model_configs =  create_custom_data(xai_cfg['train_data_loader'])
-    
+      base_model_configs =  create_custom_data(xai_cfg['train_data_loader'])    
       train_data_loader = DataLoader(torch.load(xai_cfg['train_data_loader']))
       test_data_loader = DataLoader(torch.load(xai_cfg['test_data_loader']))
       new_train_data_loader = data_loader_conversion(train_data_loader)
       new_test_data_loader = data_loader_conversion(test_data_loader)
+
       model = GraphTranslatorModule(model_configs = base_model_configs)
-      epochs = [10]
-      done_epochs = 0
-      output_dir_new="training_logs/check_new_model"
+      epochs = [100]
+      done_epochs = 0    
+
+      wandb_logger = WandbLogger(name='spatio_run_1',project='gnn_xai_spatio_model')
+      wandb_logger.watch(model, log="all")
       for epoch in epochs:          
-          trainer = Trainer( max_epochs=epoch-done_epochs, log_every_n_steps=5)#gpus = torch.cuda.device_count(),
+          trainer = Trainer( max_epochs=epoch-done_epochs, log_every_n_steps=5, logger=wandb_logger,)#gpus = torch.cuda.device_count(),
           trainer.fit(model, new_train_data_loader) #todo save accuracy
           trainer.test(model, new_test_data_loader)
           
-      PATH = "spatio_temporal_on_custom_minimal_edges.pt"    
+      PATH = os.path.join(xai_cfg['model_ckpts_path'], xai_cfg['model_ckpt_name'])
       torch.save({
             'model_state_dict': model.state_dict(),
             }, PATH)
-      
+
     else:
       spatio_explanations(xai_cfg)
       node_ids_from_classes = {0:'0: kitchen',1:'1: fridge',2:'2: counter',3:'3: cabinet',4:'4: milk',5:'5:cereal', 6:'coffee',

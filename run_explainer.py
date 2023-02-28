@@ -66,7 +66,7 @@ def simple_model_explanations(cfg):
     elif cfg['algorithm'] == 'PGExplainer':
         algorithm = PGExplainer(epochs=cfg['explanation_epochs'])
     elif cfg['algorithm'] == 'CaptumExplainer':
-        algorithm = CaptumExplainer(attribution_method='Integrated_Gradients')
+        algorithm = CaptumExplainer(attribution_method='IntegratedGradients')
     else:
         print('not a valid explanation algorithm')
         exit(0)
@@ -111,7 +111,7 @@ def simple_model_explanations(cfg):
     top_5_features = (-top_feature_imp).argsort()[:5]
     
     print('Top 5 features are',top_5_features, [top_feature_imp[ind] for ind in top_5_features] )
-    print('Explanantion edge mask is ',explanation.edge_mask)
+    #print('Explanantion edge mask is ',explanation.edge_mask)
 
     return top_5_features, [top_feature_imp[ind] for ind in top_5_features]
 
@@ -119,7 +119,6 @@ if __name__ == '__main__':
     
     with open('xai_config/default.yaml') as f:
         cfg = yaml.safe_load(f)
-
     simple_model_explanations(cfg)
     
     #options to override cfg
