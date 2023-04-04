@@ -15,6 +15,7 @@ import pandas as pd
 import os
 import sys
 import yaml
+import seaborn as sns
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use("Agg") #not show plots interactively
@@ -28,7 +29,8 @@ from pytorch_lightning.loggers import WandbLogger
 
 #todo across more hops
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+node_ids = {0:'0: kitchen',1:'1: fridge',2:'2: counter',3:'3: cabinet',4:'4: milk',5:'5:cereal', 6:'6: coffee',
+                             7:'7: keys', 8:'8: cup', 9:'9: bowl', 10:'10: rack'}
 def convert_one_hot(arr):
     n = len(arr)
     x = np.zeros((n,n),dtype=int)
@@ -117,6 +119,8 @@ def spatio_explanations(xai_cfg):
       # to explain edge e_ij, node_index = i and end_node_index = j
       node_index = xai_cfg['node_index']
 
+      print(train_data_list[graph_index].x,train_data_list[graph_index].y  )
+
       if xai_cfg['data_loader_type'] == "train_data_loader":
         y_batch = torch.zeros(train_data_list[0].y.shape)
         for data in train_data_list: #todo we only ask for explanations from this list 
@@ -198,11 +202,20 @@ def plot_most_imp(adj, imp, hops, top_k,plot_wrt_direction  ):
     imp_ends_at_i = list(imp[:,node_i].detach().numpy())
     imp_ends_at_j = list(imp[:, node_j].detach().numpy())
 
+    label_starts_at_i = [ str(node_i) + ',' + str(val) for val in range(len(imp_starts_at_i))]
+    label_starts_at_j = [ str(node_j) + ',' + str(val) for val in range(len(imp_starts_at_i))]
+    label_ends_at_i = [ str(val) for val in range(len(imp_starts_at_i)) ] #+ ',' + str(node_i)   ]    
+    label_ends_at_j = [str(val) for val in range(len(imp_starts_at_i)) ]
+    for ind in range(len(label_ends_at_i)):
+        label_ends_at_i[ind] += ',' + str(node_i)  
+    for ind in range(len(label_ends_at_j)):
+        label_ends_at_j[ind] += ',' + str(node_j)   
+
     fig, axes = plt.subplots(nrows=2, ncols=2)
     feat_labels = [str(r) for r in range(len(imp_starts_at_i)) ]
     
     df1 = pd.DataFrame({'feat_importance': imp_starts_at_i},
-                          index=feat_labels)
+                          index=label_starts_at_i)
     df1 = df1.sort_values("feat_importance", ascending=False)
     #df = df.round(decimals=3)
     if top_k is not None:
@@ -219,11 +232,11 @@ def plot_most_imp(adj, imp, hops, top_k,plot_wrt_direction  ):
             xlim=[0, float(max(imp_starts_at_i)) + 1],
             legend=False,
         )
-    plt.gca().invert_yaxis()
+    #plt.gca().invert_yaxis()
     ax1.bar_label(container=ax1.containers[0], label_type='edge')  
 
     df2 = pd.DataFrame({'feat_importance': imp_starts_at_j},
-                          index=feat_labels)
+                          index=label_starts_at_j)
     df2 = df2.sort_values("feat_importance", ascending=False)
     #df = df.round(decimals=3)
     if top_k is not None:
@@ -240,11 +253,11 @@ def plot_most_imp(adj, imp, hops, top_k,plot_wrt_direction  ):
             xlim=[0, float(max(imp_starts_at_j)) + 1],
             legend=False,
         )    
-    plt.gca().invert_yaxis()
+    #plt.gca().invert_yaxis()
     ax2.bar_label(container=ax2.containers[0], label_type='edge')    
 
     df3 = pd.DataFrame({'feat_importance': imp_ends_at_i},
-                          index=feat_labels)
+                          index=label_ends_at_i)
     df3 = df3.sort_values("feat_importance", ascending=False)
     #df = df.round(decimals=3)
     if top_k is not None:
@@ -261,11 +274,11 @@ def plot_most_imp(adj, imp, hops, top_k,plot_wrt_direction  ):
             xlim=[0, float(max(imp_ends_at_i)) + 1],
             legend=False,
         )
-    plt.gca().invert_yaxis()
+    #plt.gca().invert_yaxis()
     ax3.bar_label(container=ax3.containers[0], label_type='edge') 
 
     df4 = pd.DataFrame({'feat_importance': imp_ends_at_j},
-                          index=feat_labels)
+                          index=label_ends_at_j)
     df4 = df4.sort_values("feat_importance", ascending=False)
     
     #df = df.round(decimals=3)
@@ -283,7 +296,7 @@ def plot_most_imp(adj, imp, hops, top_k,plot_wrt_direction  ):
             xlim=[0, float(max(imp_ends_at_j)) + 1],
             legend=False,
         )
-    plt.gca().invert_yaxis()
+    #plt.gca().invert_yaxis()
     ax4.bar_label(container=ax4.containers[0], label_type='edge') 
     
     plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_most_imp.png'), bbox_inches='tight')
@@ -292,20 +305,23 @@ def plot_most_imp(adj, imp, hops, top_k,plot_wrt_direction  ):
 def plot_most_imp_across_all(adj, imp, hops, top_k,plot_wrt_direction  ):
     node_i = xai_cfg['node_index'] #i
     node_j = xai_cfg['end_node_index'] #j
+    
+    node_ids = {0:'0: kitchen',1:'1: fridge',2:'2: counter',3:'3: cabinet',4:'4: milk',5:'5:cereal', 6:'6: coffee',
+                             7:'7: keys', 8:'8: cup', 9:'9: bowl', 10:'10: rack'}
 
     imp_starts_at_i = list(imp[node_i,:].detach().numpy())
     imp_starts_at_j = list(imp[node_j,:].detach().numpy())
     imp_ends_at_i = list(imp[:,node_i].detach().numpy())
     imp_ends_at_j = list(imp[:, node_j].detach().numpy())
 
-    label_starts_at_i = [ str(node_i) + ',' + str(val) for val in range(len(imp_starts_at_i))]
-    label_starts_at_j = [ str(node_j) + ',' + str(val) for val in range(len(imp_starts_at_i))]
-    label_ends_at_i = [ str(val) for val in range(len(imp_starts_at_i)) ] #+ ',' + str(node_i)   ]    
-    label_ends_at_j = [str(val) for val in range(len(imp_starts_at_i)) ]
+    label_starts_at_i = [ node_ids[node_i] + ',' + node_ids[val] for val in range(len(imp_starts_at_i))]
+    label_starts_at_j = [ node_ids[node_j] + ',' + node_ids[val]  for val in range(len(imp_starts_at_i))]
+    label_ends_at_i = [ node_ids[val]  for val in range(len(imp_starts_at_i)) ] #+ ',' + str(node_i)   ]    
+    label_ends_at_j = [node_ids[val]  for val in range(len(imp_starts_at_i)) ]
     for ind in range(len(label_ends_at_i)):
-        label_ends_at_i[ind] += ',' + str(node_i)  
+        label_ends_at_i[ind] += ',' + node_ids[node_i]  
     for ind in range(len(label_ends_at_j)):
-        label_ends_at_j[ind] += ',' + str(node_j)   
+        label_ends_at_j[ind] += ',' + node_ids[node_j]   
     
     imp_all_directions = imp_starts_at_i
     imp_all_directions = np.append(imp_all_directions, imp_starts_at_j)
@@ -340,6 +356,59 @@ def plot_most_imp_across_all(adj, imp, hops, top_k,plot_wrt_direction  ):
     plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_most_imp_across_all.png'), bbox_inches='tight')
 
 
+def plot_most_imp_across_all_normalized(adj, imp, hops, top_k,plot_wrt_direction  ):
+    node_i = xai_cfg['node_index'] #i
+    node_j = xai_cfg['end_node_index'] #j
+    
+    node_ids = {0:'0: kitchen',1:'1: fridge',2:'2: counter',3:'3: cabinet',4:'4: milk',5:'5:cereal', 6:'6: coffee',
+                             7:'7: keys', 8:'8: cup', 9:'9: bowl', 10:'10: rack'}
+
+    imp_starts_at_i = list(imp[node_i,:].detach().numpy() / np.sqrt(np.sum(imp[node_i,:].detach().numpy()**2)))
+    imp_starts_at_j = list(imp[node_j,:].detach().numpy()  / np.sqrt(np.sum(imp[node_j,:].detach().numpy()**2)))
+    imp_ends_at_i = list(imp[:,node_i].detach().numpy()  / np.sqrt(np.sum(imp[:,node_i].detach().numpy()**2)))
+    imp_ends_at_j = list(imp[:, node_j].detach().numpy()  / np.sqrt(np.sum(imp[:,node_j].detach().numpy()**2)))
+
+    label_starts_at_i = [ node_ids[node_i] + ',' + node_ids[val] for val in range(len(imp_starts_at_i))]
+    label_starts_at_j = [ node_ids[node_j] + ',' + node_ids[val]  for val in range(len(imp_starts_at_i))]
+    label_ends_at_i = [ node_ids[val]  for val in range(len(imp_starts_at_i)) ] #+ ',' + str(node_i)   ]    
+    label_ends_at_j = [node_ids[val]  for val in range(len(imp_starts_at_i)) ]
+    for ind in range(len(label_ends_at_i)):
+        label_ends_at_i[ind] += ',' + node_ids[node_i]  
+    for ind in range(len(label_ends_at_j)):
+        label_ends_at_j[ind] += ',' + node_ids[node_j]   
+    
+    imp_all_directions = imp_starts_at_i
+    imp_all_directions = np.append(imp_all_directions, imp_starts_at_j)
+    imp_all_directions = np.append(imp_all_directions, imp_ends_at_i)
+    imp_all_directions = np.append(imp_all_directions, imp_ends_at_j)
+    labels = label_starts_at_i
+    labels = np.append(labels, label_starts_at_j)
+    labels = np.append(labels, label_ends_at_i)
+    labels = np.append(labels, label_ends_at_j)
+    
+    df = pd.DataFrame({'feat_importance': imp_all_directions},
+                          index=labels)
+    df = df.sort_values("feat_importance", ascending=False)
+    df = df.round(decimals=3)
+
+    if top_k is not None:
+        df = df.head(top_k)
+        title = f"Normalized Feature importance for top {len(df)} features"
+    else:
+        title = f"Feature importance for {len(df)} features"
+
+    ax = df.plot(
+            kind='barh',
+            figsize=(10, 7),
+            title=title,
+            ylabel='Feature label',
+            xlim=[0, float(imp_all_directions.max()) + 0.3],
+            legend=False,
+    )
+    plt.gca().invert_yaxis()
+    ax.bar_label(container=ax.containers[0], label_type='edge')
+    plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_most_imp_across_all_normalized.png'), bbox_inches='tight')
+
 
 def plot_one_direction(adj, imp, hops, top_k,plot_wrt_direction  ):
     node_i = xai_cfg['node_index'] #i
@@ -359,14 +428,110 @@ def plot_one_direction(adj, imp, hops, top_k,plot_wrt_direction  ):
     plt.show()
     plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_one_direction.png'), bbox_inches='tight')
 
+def plot_agg_attn(adj, imp, hops, top_k,plot_wrt_direction  ):
+    node_i = xai_cfg['node_index'] #i
+    node_j = xai_cfg['end_node_index'] #j
+    attn_values = imp.detach().numpy()
+    attn_weights = np.zeros(len(attn_values))
+    for i in range(len(attn_values)):
+        attn_weights[i] = sum(attn_values[:,i]) + sum(attn_values[i,:]) - attn_values[i][i]
+        attn_weights[i] /= (2*len(attn_values) - 1)
+
+    df = pd.DataFrame({'feat_importance': attn_weights},
+                          index=[node_ids[i] for i in range(len(attn_values))])
+    df = df.sort_values("feat_importance", ascending=False)
+    df = df.round(decimals=3)
+
+    if top_k is not None:
+        top_k = min(top_k, len(df))
+        df = df.head(top_k)
+        title = f"Aggregated Feature importance for top {top_k} features"
+    else:
+        title = f"Aggregated Feature importance for {len(df)} features"
+
+    ax = df.plot(
+            kind='barh',
+            figsize=(10, 7),
+            title=title,
+            ylabel='Node index',
+            xlim=[0, float(attn_weights.max()) + 0.3],
+            legend=False,
+    )
+    plt.gca().invert_yaxis()
+    ax.bar_label(container=ax.containers[0], label_type='edge')
+    plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_agg_attn.png'), bbox_inches='tight')
+
+def plot_agg_attn_nodewise(adj, imp, hops, top_k,plot_wrt_direction  ):
+    node_i = xai_cfg['node_index'] #i
+    node_j = xai_cfg['end_node_index'] #j
+    attn_values = imp.detach().numpy()
+    attn_weights = np.zeros(len(attn_values))
+    for i in range(len(attn_values)):
+        attn_weights[i] = (attn_values[node_i,i]) + (attn_values[i,node_i]) 
+        attn_weights[i] /= 2
+
+    df = pd.DataFrame({'feat_importance': attn_weights},
+                          index=[node_ids[i] for i in range(len(attn_values))])
+    df = df.sort_values("feat_importance", ascending=False)
+    #df = df.round(decimals=3)
+
+    if top_k is not None:
+        top_k = min(top_k, len(df))
+        df = df.head(top_k)
+        title = f"Nodewise Aggregated Feature importance for top {top_k} features"
+    else:
+        title = f"Nodewise Aggregated Feature importance for {len(df)} features"
+
+    ax = df.plot(
+            kind='barh',
+            figsize=(10, 7),
+            title=title,
+            ylabel='Node index',
+            xlim=[0, float(attn_weights.max()) + 0.3],
+            legend=False,
+    )
+    plt.gca().invert_yaxis()
+    ax.bar_label(container=ax.containers[0], label_type='edge')
+    plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_agg_attn_nodewise.png'), bbox_inches='tight')
+
+def plot_k_hops(adj, imp, hops, top_k,plot_wrt_direction  ):
+    node_i = xai_cfg['node_index'] #i
+    node_j = xai_cfg['end_node_index'] #j
+    attn_values = list(imp[node_i,:].detach().numpy())
+    num_nodes = list([i for i in range(len(imp[node_i]))])
+
+    for i in range(len(adj)):
+        for j in range(len(adj[0])):
+            if(adj[i][j]== 1):
+                adj[j][i] = 1
+                # to make it bidirectional and easy to find hop neighbors
+    node_arr = np.zeros(len(adj))
+    node_arr[node_i] = 1
+    adj_squared = np.matmul(adj,adj)
+    print(np.dot(adj_squared,node_arr.T))
+
+def plot_imp_heatmap(adj, imp, hops, top_k,plot_wrt_direction  ):
+    fig, (ax1, ax2) = plt.subplots(1,2, figsize=(25, 10))
+    sns.heatmap(adj.detach().numpy(), ax=ax1)
+    sns.heatmap(imp.detach().numpy(), ax=ax2)
+    plt.show()
+    plt.savefig(os.path.join(xai_cfg['output_dir'],'plot_imp_heatmap.png'), bbox_inches='tight')
+
 
 if __name__ == '__main__':    
     with open('spatio_xai_config/xai_spatio_custom.yaml') as f:
       xai_cfg = yaml.safe_load(f)
     adj, imp = spatio_explanations(xai_cfg)
-    plot_all_imp_one_hop(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])
-    plot_most_imp(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])
-    plot_one_direction(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])
-    plot_most_imp_across_all(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])
+    
+    plot_all_imp_one_hop(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction']) # compare all 4 imp at once
+    plot_most_imp(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction']) # 4 diff top-k plots
+    plot_one_direction(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction']) 
+    plot_most_imp_across_all(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction']) # rank most imp across all one hop
+    
+    plot_most_imp_across_all_normalized(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction']) 
+    #plot_k_hops(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction']) #todo
+    plot_agg_attn(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])    
+    plot_agg_attn_nodewise(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])
+    plot_imp_heatmap(adj, imp, xai_cfg['hops'], xai_cfg['top_k'], xai_cfg['plot_wrt_direction'])
 
 

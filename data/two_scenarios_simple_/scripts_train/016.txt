@@ -1,0 +1,173 @@
+brushing_teeth (08:10 - 08:26) 
+watching_tv (09:06 - 10:33) 
+
+
+### brushing_teeth-01.txt
+
+## Idle until 08:10
+
+## Brush teeth until 08:11
+
+[WALK] <sink> (19) [2]
+491.4367326987866
+## Brush teeth until 08:11
+
+[FIND] <faucet> (20) [3]
+491.9428298976939
+## Brush teeth until 08:12
+
+[SWITCHON] <faucet> (20) [4]
+492.47853776973545
+<<Graph Changes>>
+   (s)20faucet['OFF']->['ON']
+
+## Brush teeth until 08:12
+
+[SWITCHOFF] <faucet> (20) [5]
+492.96863090060083
+<<Graph Changes>>
+   (s)20faucet['ON']->['OFF']
+
+## Brush teeth until 08:13
+
+[WALK] <bathroom_cabinet> (17) [6]
+493.302541811333
+## Brush teeth until 08:13
+
+[OPEN] <bathroom_cabinet> (17) [7]
+493.61570918180394
+<<Graph Changes>>
+   (s)17bathroom_cabinet['CLOSED']->['OPEN']
+
+## Brush teeth until 08:14
+
+[FIND] <tooth_paste> (1201) [8]
+493.9693830844315
+## Brush teeth until 08:14
+
+[GRAB] <tooth_paste> (1201) [9]
+494.2931917581476
+[OPEN] <tooth_paste> (1201) [10]
+494.63664017436776
+[FIND] <toothbrush> (1202) [11]
+495.0095913546534
+[GRAB] <toothbrush> (1202) [12]
+495.3673351618342
+[WALK] <faucet> (20) [13]
+495.58110902209495
+[SWITCHON] <faucet> (20) [14]
+495.887935135177
+[FIND] <toothbrush> (1202) [15]
+496.10959136577975
+[WASH] <toothbrush> (1202) [16]
+496.44876115552984
+[SWITCHOFF] <faucet> (20) [17]
+496.7205119574679
+[FIND] <toothbrush> (1202) [18]
+497.4239282512258
+[FIND] <tooth_paste> (1201) [19]
+498.0313666298136
+[POUR] <tooth_paste> (1201) <toothbrush> (1202) [20]
+498.75243167883474
+[CLOSE] <tooth_paste> (1201) [21]
+499.4032677361582
+[WALK] <bathroom_cabinet> (17) [22]
+499.91049631184194
+[PUTIN] <tooth_paste> (1201) <bathroom_cabinet> (17) [23]
+500.54347527298427
+[CLOSE] <bathroom_cabinet> (17) [24]
+501.06208318815055
+[FIND] <faucet> (20) [25]
+501.5642957794138
+[FIND] <toothbrush> (1202) [26]
+502.01732400884384
+[SWITCHON] <faucet> (20) [27]
+502.5884691101231
+[WASH] <toothbrush> (1202) [28]
+503.1368559093925
+[SWITCHOFF] <faucet> (20) [29]
+503.600534297539
+[WALK] <toothbrush_holder> (1203) [30]
+504.5835580877494
+[PUTBACK] <toothbrush> (1202) <toothbrush_holder> (1203) [31]
+505.5835461384896
+<<Graph Changes>>
+   (s)17bathroom_cabinet['OPEN']->['CLOSED']
+   - toothbrush ON bathroom_counter
+   + toothbrush ON toothbrush_holder
+
+505.5835461384896: toothbrush moved
+## Brush teeth until 08:26
+
+
+### watching_tv-08.txt
+<<Activity Change>>
+## Idle until 09:06
+
+## Sit to watch TV until 09:07
+
+[WALK] <blanket> (1016) [2]
+546.929590762931
+## Sit to watch TV until 09:07
+
+[FIND] <blanket> (1016) [3]
+547.217669712963
+## Sit to watch TV until 09:07
+
+[GRAB] <blanket> (1016) [4]
+547.5980387377735
+[WALK] <sofa> (269) [5]
+547.9654080851178
+[PUTBACK] <blanket> (1016) <sofa> (269) [6]
+548.3627537033271
+## Sit to watch TV until 09:08
+
+[WALK] <remote_control> (1174) [7]
+548.8654203929599
+## Watch TV until 09:09
+
+[FIND] <remote_control> (1174) [8]
+549.4659128531118
+## Watch TV until 09:09
+
+[GRAB] <remote_control> (1174) [9]
+549.9949846234992
+[WALK] <sofa> (269) [10]
+564.7703259586406
+[SIT] <sofa> (269) [11]
+579.9630419384231
+[FIND] <sofa> (269) [12]
+594.6752898077425
+[PUTBACK] <remote_control> (1174) <sofa> (269) [13]
+616.6888372893429
+<<Graph Changes>>
+   (s)240character[]->['SITTING']
+   - remote_control ON tvstand
+   + remote_control ON sofa
+
+616.6888372893429: remote_control moved
+## Watch TV until 10:17
+
+[STANDUP] [14]
+632.1175958919977
+<<Graph Changes>>
+   (s)240character['SITTING']->[]
+
+## Watch TV until 10:32
+
+[FIND] <remote_control> (1174) [15]
+632.3785161951362
+## Putaway TV remote until 10:32
+
+[GRAB] <remote_control> (1174) [16]
+632.8296179170493
+[FIND] <tvstand> (273) [17]
+633.107901138622
+[PUTBACK] <remote_control> (1174) <tvstand> (273) [18]
+633.4992284520642
+<<Graph Changes>>
+   - remote_control ON sofa
+   + remote_control ON tvstand
+
+633.4992284520642: remote_control moved
+## Putaway TV remote until 10:33

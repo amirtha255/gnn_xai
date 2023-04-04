@@ -1,0 +1,99 @@
+brushing_teeth (08:10 - 08:26) 
+
+
+### brushing_teeth-01.txt
+
+## Idle until 08:10
+
+## Brush teeth until 08:11
+
+[WALK] <sink> (19) [2]
+491.662925604403
+## Brush teeth until 08:12
+
+[FIND] <faucet> (20) [3]
+492.29199836948004
+## Brush teeth until 08:12
+
+[SWITCHON] <faucet> (20) [4]
+492.8251764476354
+<<Graph Changes>>
+   (s)20faucet['OFF']->['ON']
+
+## Brush teeth until 08:13
+
+[SWITCHOFF] <faucet> (20) [5]
+493.47849971535186
+<<Graph Changes>>
+   (s)20faucet['ON']->['OFF']
+
+## Brush teeth until 08:13
+
+[WALK] <bathroom_cabinet> (17) [6]
+493.8019566875383
+## Brush teeth until 08:14
+
+[OPEN] <bathroom_cabinet> (17) [7]
+494.2189360886159
+<<Graph Changes>>
+   (s)17bathroom_cabinet['CLOSED']->['OPEN']
+
+## Brush teeth until 08:14
+
+[FIND] <tooth_paste> (1201) [8]
+494.54527953813306
+## Brush teeth until 08:15
+
+[GRAB] <tooth_paste> (1201) [9]
+494.92520210964335
+[OPEN] <tooth_paste> (1201) [10]
+495.3039100475505
+[FIND] <toothbrush> (1202) [11]
+495.68435631490837
+[GRAB] <toothbrush> (1202) [12]
+495.9817572952686
+[WALK] <faucet> (20) [13]
+496.23487582539894
+[SWITCHON] <faucet> (20) [14]
+496.44436683736274
+[FIND] <toothbrush> (1202) [15]
+496.8039968594616
+[WASH] <toothbrush> (1202) [16]
+497.0944301310041
+[SWITCHOFF] <faucet> (20) [17]
+497.4403387651039
+[FIND] <toothbrush> (1202) [18]
+497.9923910630474
+[FIND] <tooth_paste> (1201) [19]
+498.5226418690632
+[POUR] <tooth_paste> (1201) <toothbrush> (1202) [20]
+499.2104357299314
+[CLOSE] <tooth_paste> (1201) [21]
+499.88606627694156
+[WALK] <bathroom_cabinet> (17) [22]
+500.4224969082055
+[PUTIN] <tooth_paste> (1201) <bathroom_cabinet> (17) [23]
+501.0471792353542
+[CLOSE] <bathroom_cabinet> (17) [24]
+501.5975354579986
+[FIND] <faucet> (20) [25]
+502.17795277712173
+[FIND] <toothbrush> (1202) [26]
+502.68142878735694
+[SWITCHON] <faucet> (20) [27]
+503.1305084697052
+[WASH] <toothbrush> (1202) [28]
+503.6444694267022
+[SWITCHOFF] <faucet> (20) [29]
+504.1707673762756
+[WALK] <toothbrush_holder> (1203) [30]
+504.8801984670887
+[PUTBACK] <toothbrush> (1202) <toothbrush_holder> (1203) [31]
+505.7200906665136
+<<Graph Changes>>
+   (s)17bathroom_cabinet['OPEN']->['CLOSED']
+   - toothbrush ON bathroom_counter
+   + toothbrush ON toothbrush_holder
+
+505.7200906665136: toothbrush moved
+## Brush teeth until 08:26

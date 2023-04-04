@@ -1,0 +1,2270 @@
+{
+    "times": [
+        360,
+        490,
+        492.2124086523657,
+        492.7857977397799,
+        493.79854736103675,
+        494.6299116948565,
+        505.5567146389044,
+        545.5567146389044,
+        548.0022822796462,
+        548.8575106925464,
+        600.3766727617447,
+        617.0778717724943,
+        617.3958711373436,
+        618.2723915044864
+    ],
+    "activities": [
+        null,
+        "Brush teeth",
+        "Brush teeth",
+        "Brush teeth",
+        "Brush teeth",
+        "Brush teeth",
+        null,
+        "Sit to watch TV",
+        "Watch TV",
+        "Watch TV",
+        "Watch TV",
+        "Putaway TV remote",
+        "Putaway TV remote"
+    ],
+    "activities_coarse": [
+        null,
+        "brushing_teeth",
+        "brushing_teeth",
+        "brushing_teeth",
+        "brushing_teeth",
+        "brushing_teeth",
+        null,
+        "watching_tv",
+        "watching_tv",
+        "watching_tv",
+        "watching_tv",
+        "watching_tv",
+        "watching_tv"
+    ],
+    "graphs": [
+        {
+            "nodes": [
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "CLOSE",
+                    "to_id": 269
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "CLOSE",
+                    "to_id": 1174
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 269
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "CLOSE",
+                    "to_id": 269
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "CLOSE",
+                    "to_id": 1174
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 269
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "CLOSE",
+                    "to_id": 269
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "CLOSE",
+                    "to_id": 1174
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 269
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        },
+        {
+            "nodes": [
+                {
+                    "id": 1202,
+                    "class_name": "toothbrush",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "RECIPIENT"
+                    ],
+                    "states": [
+                        "CLEAN"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1,
+                    "class_name": "bathroom",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 18,
+                    "class_name": "bathroom_counter",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [
+                        "CLOSED"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 241,
+                    "class_name": "home_office",
+                    "category": "Rooms",
+                    "properties": [],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 269,
+                    "class_name": "sofa",
+                    "category": "Furniture",
+                    "properties": [
+                        "MOVABLE",
+                        "LIEABLE",
+                        "SITTABLE",
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 273,
+                    "class_name": "tvstand",
+                    "category": "Furniture",
+                    "properties": [
+                        "SURFACES"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1174,
+                    "class_name": "remote_control",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "HAS_SWITCH"
+                    ],
+                    "states": [
+                        "OFF"
+                    ],
+                    "prefab_name": null,
+                    "bounding_box": null
+                },
+                {
+                    "id": 1203,
+                    "class_name": "toothbrush_holder",
+                    "category": "placable_objects",
+                    "properties": [
+                        "MOVABLE",
+                        "GRABBABLE",
+                        "CONTAINERS"
+                    ],
+                    "states": [],
+                    "prefab_name": null,
+                    "bounding_box": null
+                }
+            ],
+            "edges": [
+                {
+                    "from_id": 273,
+                    "relation_type": "CLOSE",
+                    "to_id": 1174
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "CLOSE",
+                    "to_id": 1202
+                },
+                {
+                    "from_id": 273,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "CLOSE",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                },
+                {
+                    "from_id": 18,
+                    "relation_type": "INSIDE",
+                    "to_id": 1
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "ON",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 1203,
+                    "relation_type": "ON",
+                    "to_id": 18
+                },
+                {
+                    "from_id": 1174,
+                    "relation_type": "ON",
+                    "to_id": 273
+                },
+                {
+                    "from_id": 1202,
+                    "relation_type": "CLOSE",
+                    "to_id": 1203
+                },
+                {
+                    "from_id": 269,
+                    "relation_type": "INSIDE",
+                    "to_id": 241
+                }
+            ]
+        }
+    ]
+}

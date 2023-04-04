@@ -1,0 +1,23 @@
+{
+    "dt": 10,
+    "num_train_routines": 50,
+    "num_test_routines": 10,
+    "start_time": 360,
+    "end_time": 1440,
+    "only_used_objects": true,
+    "idle_sampling_factor": 1.0,
+    "block_activity_for_hrs": 5,
+    "interruption_probability": 0.0,
+    "different_activity_scripts": false,
+    "num_nodes": 8,
+    "search_object_ids": [
+        1174,
+        1202,
+        1203
+    ],
+    "search_object_names": [
+        "remote_control",
+        "toothbrush",
+        "toothbrush_holder"
+    ]
+}

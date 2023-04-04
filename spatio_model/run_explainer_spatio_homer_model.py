@@ -3,7 +3,7 @@ import torch.nn.functional as F
 import torch_geometric
 from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
-from torch_geometric.explain import Explainer, GNNExplainer
+from torch_geometric.explain import Explainer, GNNExplainer,CaptumExplainer, PGExplainer
 
 import networkx as nx
 import numpy as np
@@ -24,19 +24,24 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def one_hot_to_cat(y):
    y = np.array(y)
    op = np.argmax(y, axis=1)
-   return op
+   return torch.tensor(op)
 
 
 def homer_data_to_pyg(data_loader):
     data_list = []
     for step, data_node in enumerate(data_loader):
-      x = data_node['edges'].squeeze()
+      x = data_node['edges'].squeeze().requires_grad_(True)
       edge_index = data_node['edges'].squeeze()
-      edge_index = np.argwhere(edge_index>0)	     
+      edge_index = np.argwhere(edge_index>0)	  # not correct as edges are not correctly done
+      temp_0 = edge_index[0,:]
+      temp_1 = edge_index[1,:]
+      edge_index = np.append(edge_index, [[val for val in temp_1], [val for val in temp_0]], 1)     
+      edge_index = torch.tensor(edge_index).float().requires_grad_(True)    
       y_edges = data_node['y_edges'].squeeze()        
-      y = one_hot_to_cat(y_edges)
+      y = one_hot_to_cat(y_edges).float().requires_grad_(True)      
       data_pyg = Data(x=x,edge_index=edge_index,y=y)
-      data_list.append(data_pyg)
+      data_list.append(data_pyg)     
+      
     return data_list
 
 if __name__ == '__main__':
@@ -47,9 +52,8 @@ if __name__ == '__main__':
     if xai_cfg['model_mode']=="training":
       print('training')
       os.system("python3 ./run.py --path={} --name=ours " 
-                     " --train_days={} --logs_dir={}/test_checkpoint "
-                       "--ckpt_dir={} --read_ckpt".format(xai_cfg['data_dir'], xai_cfg['train_days'],
-                                                          xai_cfg['logs_dir'], xai_cfg['ckpt_dir']))
+                     " --train_days={} --logs_dir={}/test_checkpoint ".format(xai_cfg['data_dir'], xai_cfg['train_days'],
+                                                          xai_cfg['logs_dir']))
     else:
       with open('config/default.yaml') as f:
           cfg = yaml.safe_load(f)  
@@ -80,11 +84,11 @@ if __name__ == '__main__':
         base_model_config = adict(base_model_config)
         y_batch = torch.zeros(train_data_list[0].y.shape)
         for data in train_data_list: #todo we only ask for explanations from this list 
-          y_batch = torch.vstack((y_batch,torch.tensor(data.y)))
+          y_batch = torch.vstack((y_batch,torch.tensor(data.y.requires_grad_(True))))
         y_batch = y_batch[1:,:]
 
         target = (train_data_list[graph_index].y) #todo choice in test list
-        x, edge_index = train_data_list[graph_index].x.to(device),train_data_list[graph_index].edge_index.to(device) #choose which graph to explain
+        x, edge_index = train_data_list[graph_index].x,train_data_list[graph_index].edge_index #choose which graph to explain
 
       
       else:
@@ -93,11 +97,11 @@ if __name__ == '__main__':
         base_model_config = adict(base_model_config)
         y_batch = torch.zeros(test_data_list[0].y.shape)
         for data in test_data_list: #todo we only ask for explanations from this list 
-            y_batch = torch.vstack((y_batch,data.y))   
+            y_batch = torch.vstack((y_batch,data.y.requires_grad_(True)))   
         y_batch = y_batch[1:,:]
 
         target = (test_data_list[graph_index].y) #todo choice in test list
-        x, edge_index = test_data_list[graph_index].x.to(device),test_data_list[graph_index].edge_index.to(device) #choose which graph to explain
+        x, edge_index = test_data_list[graph_index].x,test_data_list[graph_index].edge_index #choose which graph to explain
 
         
       model = GnnConverter(base_model_config, y_batch, check_point=xai_cfg['ckpt'], data_type='homer')
@@ -114,7 +118,7 @@ if __name__ == '__main__':
       elif xai_cfg['algorithm'] == 'PGExplainer':
           algorithm = PGExplainer(epochs=xai_cfg['explanation_epochs'])
       elif xai_cfg['algorithm'] == 'CaptumExplainer':
-          algorithm = CaptumExplainer(attribution_method='Integrated_Gradients')
+          algorithm = CaptumExplainer(attribution_method='IntegratedGradients')
       else:
           print('not a valid explanation algorithm')
           exit(0)
@@ -127,8 +131,10 @@ if __name__ == '__main__':
           edge_mask_type=xai_cfg['edge_mask_type'],
           model_config=model_config,
       )
-         
-      explanation = explainer(x, edge_index, index=node_index, target=target)
+      if xai_cfg['algorithm'] != 'CaptumExplainer':   
+        explanation = explainer(x, edge_index, index=node_index, target=target, y_index=graph_index)
+      else:
+        explanation = explainer(x, edge_index, index=node_index)
       print(f'Generated explanations in {explanation.available_explanations}')
 
       if not os.path.exists(xai_cfg['output_dir']):

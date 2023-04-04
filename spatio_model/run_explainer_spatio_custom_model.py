@@ -3,7 +3,10 @@ import torch.nn.functional as F
 import torch_geometric
 from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
+
+import sys
 from torch_geometric.explain import Explainer, GNNExplainer,CaptumExplainer, PGExplainer
+
 from torch_geometric.visualization import visualize_graph
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import ModelCheckpoint
@@ -12,12 +15,14 @@ from adict import adict
 import networkx as nx
 import numpy as np
 import os
+import sys
 import yaml
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use("Agg") #not show plots interactively
 
 from explainer_wrapper import GnnConverter
+from explainer_wrapper_ig import GnnConverter_integrated_gradients 
 from reader import RoutinesDataset
 from encoders import TimeEncodingOptions
 from GraphTranslatorModule import GraphTranslatorModule
@@ -97,28 +102,22 @@ def spatio_explanations(xai_cfg):
       base_model_config['c_len'] = 14 #todo
       base_model_config['edge_importance'] = 'predicted'
       base_model_config['hidden_layer_size'] = 20
+      base_model_config['n_nodes'] = train_data_list[0].x.shape[0]
+      base_model_config['n_len'] = train_data_list[0].x.shape[1]        
+      base_model_config = adict(base_model_config)
       
       graph_index = xai_cfg['graph_index']
       node_index = xai_cfg['node_index']
-      #print('graph and node index',graph_index,node_index)
-      # for custom data
+
       if xai_cfg['data_loader_type'] == "train_data_loader":
-        base_model_config['n_nodes'] = train_data_list[0].x.shape[0]
-        base_model_config['n_len'] = train_data_list[0].x.shape[1]        
-        base_model_config = adict(base_model_config)
         y_batch = torch.zeros(train_data_list[0].y.shape)
         for data in train_data_list: #todo we only ask for explanations from this list 
           y_batch = torch.vstack((y_batch,torch.tensor(data.y)))
         y_batch = y_batch[1:,:]
-
         target = (train_data_list[graph_index].y.long()) #todo choice in test list
         x, edge_index = train_data_list[graph_index].x.to(device),train_data_list[graph_index].edge_index.to(device) #choose which graph to explain
-
       
       else:
-        base_model_config['n_nodes'] = test_data_list[0].x.shape[0]
-        base_model_config['n_len'] = test_data_list[0].x.shape[1]
-        base_model_config = adict(base_model_config)
         y_batch = torch.zeros(test_data_list[0].y.shape)
         for data in test_data_list: #todo we only ask for explanations from this list 
             y_batch = torch.vstack((y_batch,data.y))   
@@ -143,6 +142,7 @@ def spatio_explanations(xai_cfg):
           algorithm = PGExplainer(epochs=xai_cfg['explanation_epochs'])
       elif xai_cfg['algorithm'] == 'CaptumExplainer':
           algorithm = CaptumExplainer(attribution_method='IntegratedGradients')
+          model = GnnConverter_integrated_gradients(base_model_config, y_batch, check_point=xai_cfg['ckpt'], data_type='custom')
       else:
           print('not a valid explanation algorithm')
           exit(0)
@@ -155,20 +155,21 @@ def spatio_explanations(xai_cfg):
           edge_mask_type=xai_cfg['edge_mask_type'],
           model_config=model_config,
       )
-         
-      explanation = explainer(x, edge_index, index=node_index, target=target)
-      #print(f'Generated explanations in {explanation.available_explanations}')
+      if xai_cfg['algorithm'] != 'CaptumExplainer':
+        explanation = explainer(x, edge_index, index=node_index, target=target, y_index=graph_index)
+      else:
+        explanation = explainer(x, edge_index, index=node_index, target=target)
 
       if not os.path.exists(xai_cfg['output_dir']):
           os.makedirs(xai_cfg['output_dir'])
 
       path = os.path.join(xai_cfg['output_dir'],'feature_importance_g{}_n{}_{}.png'.format(graph_index,node_index,xai_cfg['name']))
       explanation.visualize_feature_importance(path, top_k=5)
-      #print(f"Feature importance plot has been saved to '{path}'")
+      print(f"Feature importance plot has been saved to '{path}'")
 
       path = os.path.join(xai_cfg['output_dir'],'subgraph_g{}_n{}_{}.pdf'.format(graph_index,node_index,xai_cfg['name']))
       explanation.visualize_graph(path)
-      #print(f"Subgraph visualization plot has been saved to '{path}'")
+      print(f"Subgraph visualization plot has been saved to '{path}'")
 
       #as edge mask is zero, the subgraph generated is zero as well
       path = os.path.join(xai_cfg['output_dir'],'orig_graph_g{}_n{}_{}.pdf'.format(graph_index,node_index,xai_cfg['name']))
@@ -192,6 +193,7 @@ if __name__ == '__main__':
       test_data_loader = DataLoader(torch.load(xai_cfg['test_data_loader']))
       new_train_data_loader = data_loader_conversion(train_data_loader)
       new_test_data_loader = data_loader_conversion(test_data_loader)
+
 
       model = GraphTranslatorModule(model_configs = base_model_configs)
       epochs = [100]

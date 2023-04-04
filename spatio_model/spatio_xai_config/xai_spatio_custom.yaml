@@ -2,14 +2,15 @@ name: spatio_with_custom
 train_data_loader: /workspace/SpatioTemporalObjectTracking/custom_data/train_custom_data_min_13_steps.pt
 test_data_loader: /workspace/SpatioTemporalObjectTracking/custom_data/test_custom_data_min_13_steps.pt
 
+model_mode: explain # explain, training is alternative, to train data instead
+
+#training mode params
 model_ckpts_path : spatio_custom_trained_models
 model_ckpt_name: spatio_temporal_on_minimal_13_steps.pt
-model_mode: training # explain, training is alternative, to train data instead
 
-# For explain mode
+#Explain mode params
 ckpt: spatio_custom_trained_models/spatio_temporal_on_minimal_13_steps.pt
 data_loader_type : train_data_loader # test_data_loader is alternative. this is data that will be examined by pyg explainer
-
 algorithm: GNNExplainer
 explanation_epochs: 200
 explanation_type: model
@@ -17,8 +18,14 @@ node_mask_type: attributes
 edge_mask_type: object
 mode: multiclass_classification
 task_level: node
-return_type: log_probs
-graph_index: 14
-node_index: 2
-
+return_type: probs
 output_dir: spatio_custom_trained_models
+
+# for vis_attn_weights.py
+hops: 1
+top_k: 15
+plot_wrt_direction: False  # means consider top_k among all 4 directions. If true, find top_k across each of the 4 directions 
+#if your query edge is (i,j) then you want to look at all (i,_), (_,j), (_,i) and (j,_)  edges
+graph_index: 11
+node_index: 8
+end_node_index : 2 # same as what the target is
