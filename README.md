@@ -1,43 +1,14 @@
-# gnn_xai
-PyG explainer supports the following
+##Explainability in Dynamic Directed Graph Neural Networks:
+In this framework, we formulate explainability within dynamic and directed graph neural networks by focusing on both temporal and graph topological aspects that contribute to changes in the graph structure over time.
 
-algorithm:
-GNNExplainer
-CaptumExplainer - attribution_method='IntegratedGradients' , need node mask
-PGExplainer - only supports phenomenon and 'none' node_mask_type
+##Key Features
+Post-hoc Explanations: The explanations for changes in the graph are generated after the fact. They are conditioned on:
+- The input edge
+- The previous state of the graph
+- The trained base model (refer to Section E for details)
 
+##Unique Approach
+Our approach is unique in that existing explanations for graph neural networks predominantly pertain to node classification networks. In contrast, our focus is on dynamic graph neural networks characterized by temporally varying topologies.
+This framework is specifically designed for a spatio-temporal predictive model of object dynamics, aimed at enhancing proactive robot assistance. Notably, our task diverges from traditional link prediction due to the generative nature of the model.
 
-explanation_type:
-"model": Explains the model prediction.
-"phenomenon": Explains the phenomenon that the model is trying to predict.
-compute their losses with respect to the model output ("model") or the target output ("phenomenon")
-
-node_mask_type:
-None: Will not apply any mask on nodes.
-"object": Will mask each node.
-"common_attributes": Will mask each feature.
-"attributes": Will mask each feature across all nodes.
-
-edge_mask_type:
-Same options as node_mask_type
-
-mode (ModelMode or str) –
-The mode of the model. The possible values are:
-"binary_classification": A binary classification model.
-"multiclass_classification": A multiclass classification model.
-"regression": A regression model.
-
-task_level (ModelTaskLevel or str) –
-The task-level of the model. The possible values are:
-"node": A node-level prediction model.
-"edge": An edge-level prediction model.
-"graph": A graph-level prediction model.
-
-return_type (ModelReturnType or str, optional) –
-The return type of the model. The possible values are (default: None):
-"raw": The model returns raw values.
-"probs": The model returns probabilities.
-"log_probs": The model returns log-probabilities.
-
-node_ids_from_classes = {0:'0: kitchen',1:'1: fridge',2:'2: counter',3:'3: cabinet',4:'4: milk',5:'5:cereal', 6:'coffee',
-                                7:'7: keys', 8:'8: cup', 9:'9: bowl', 10:'10: rack'}
+For further details and methodologies, please refer to the subsequent sections of this documentation.
