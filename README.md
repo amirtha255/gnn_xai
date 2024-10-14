@@ -10,5 +10,3 @@ Post-hoc Explanations: The explanations for changes in the graph are generated a
 ## Unique Approach
 Our approach is unique in that existing explanations for graph neural networks predominantly pertain to node classification networks. In contrast, our focus is on dynamic graph neural networks characterized by temporally varying topologies.
 This framework is specifically designed for a spatio-temporal predictive model of object dynamics, aimed at enhancing proactive robot assistance. Notably, our task diverges from traditional link prediction due to the generative nature of the model.
-
-For further details and methodologies, please refer to the subsequent sections of this documentation.
